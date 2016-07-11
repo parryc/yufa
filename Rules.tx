@@ -1,8 +1,10 @@
 Rule:
   'rule' name=ID ':'
     steps*=Step
-  'conjugate:'
-    conjugations*=Conjugation
+  ('conjugate:'
+    conjugations*=Conjugation)?
+  ('conjugation groups:'
+    conjugation_groups*=ConjugationBlock)?
 ;
 
 Step:
@@ -63,7 +65,10 @@ And:
 
 
 
-
+ConjugationBlock:
+  'group' group*=STRING
+  conjugations*=Conjugation
+;
 
 Conjugation:
   type+=Pronoun ':' conjugation+=ConjugationText

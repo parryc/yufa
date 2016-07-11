@@ -6,12 +6,12 @@ import sys
 
 class Parser(object):
 
-  def __init__(self, word, conjugation):
+  def __init__(self, word, group):
     self.context = word
     self.base    = word
     self.state   = ''
     self.status  = ''
-    self.conjugation = conjugation
+    self.group   = group
 
     self.orthography = {
       'C' : 'bcdfghjklmnpqrstvwxyz'
@@ -22,21 +22,30 @@ class Parser(object):
   def __str__(self):
     return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
 
-  def parse(self, model):
+  def parse(self, model, form):
     self.state = model.name
     for step in model.steps:
       self._run(step)
 
-    for conjugation in model.conjugations:
-      if conjugation.type[0] == self.conjugation:
-        if conjugation.conjugation[0] == 'base':
-          self.context = self.base
-        else:
-          addition = ''.join(conjugation.conjugation[0].string)
-          self.context = self.context + addition
+    conjugations = model.conjugations
+
+    for _group in model.conjugation_groups:
+      if _group.group[0] is self.group:
+        conjugations = _group.conjugations
+
+    self.conjugate(conjugations, form)
 
     print('present: {}'.format(self))
 
+  def conjugate(self, conjugations, form):
+    for conjugation in conjugations:
+      if conjugation.type[0] == form:
+        for c in conjugation.conjugation:
+          if c == 'base':
+            self.context = self.base
+          else:
+            addition = ''.join(c.string)
+            self.context = self.context + addition
 
   def name(self, command):
     return command.__class__.__name__
@@ -124,9 +133,14 @@ class Parser(object):
 
 def main():
   # python parser.py [word]
-  meta                = metamodel_from_file('Rules.tx')
-  dutch_present_tense = meta.model_from_file(sys.argv[1])
-  Parser(sys.argv[2], sys.argv[3]).parse(dutch_present_tense)
+  meta  = metamodel_from_file('Rules.tx')
+  model = meta.model_from_file(sys.argv[1])
+
+  if len(sys.argv) == 5:
+    group = sys.argv[4]
+  else:
+    group = ''
+  Parser(sys.argv[2], group).parse(model, sys.argv[3])
 
 
 if __name__ == "__main__":

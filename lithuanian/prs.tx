@@ -1,0 +1,27 @@
+rule V_PRS:
+  remove last V
+
+conjugation groups:
+  group 'A'
+  1sg : + 'u'
+  2sg : + 'i'
+  3sg : base
+  1pl : base + 'me'
+  2pl : base + 'te'
+  3pl : base
+
+  group 'I'
+  1sg : + 'iu'
+  2sg : + 'i'
+  3sg : base
+  1pl : base + 'me'
+  2pl : base + 'te'
+  3pl : base
+
+  group 'O'
+  1sg : + 'au'
+  2sg : + 'ai'
+  3sg : base
+  1pl : base + 'me'
+  2pl : base + 'te'
+  3pl : base
