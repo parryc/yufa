@@ -1,6 +1,8 @@
 Rule:
   'rule' name=ID ':'
     steps*=Step
+  'conjugate:'
+    conjugations*=Conjugation
 ;
 
 Step:
@@ -58,3 +60,28 @@ Quantity:
 And:
   '+' string+=Text
 ;
+
+
+
+
+
+Conjugation:
+  type+=Pronoun ':' conjugation+=ConjugationText
+;
+
+ConjugationText:
+  And | Text | Base
+;
+
+Base:
+  'base'
+;
+
+Pronoun:
+  '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl'
+;
+
+
+
+
+

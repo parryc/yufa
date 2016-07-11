@@ -6,19 +6,18 @@ import sys
 
 class Parser(object):
 
-  def __init__(self, word):
+  def __init__(self, word, conjugation):
     self.context = word
     self.base    = word
     self.state   = ''
     self.status  = ''
+    self.conjugation = conjugation
 
     self.orthography = {
       'C' : 'bcdfghjklmnpqrstvwxyz'
      ,'V' : 'aeiou'
     }
-    print('^^^')
-    print(self)
-    print('^^^')
+
 
   def __str__(self):
     return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
@@ -26,15 +25,23 @@ class Parser(object):
   def parse(self, model):
     self.state = model.name
     for step in model.steps:
-      print(self.name(step))
       self._run(step)
-      print('present: {}'.format(self))
+
+    for conjugation in model.conjugations:
+      if conjugation.type[0] == self.conjugation:
+        if conjugation.conjugation[0] == 'base':
+          self.context = self.base
+        else:
+          addition = ''.join(conjugation.conjugation[0].string)
+          self.context = self.context + addition
+
+    print('present: {}'.format(self))
+
 
   def name(self, command):
     return command.__class__.__name__
 
   def parse_set(self, step):
-    print(step.action)
     if step.action == 'otherwise' and not self.status:
       self.status = step.status
     elif self.name(step.action) == 'EndsWith':
@@ -77,7 +84,6 @@ class Parser(object):
         regex += '([{}]){}'.format(self.orthography[what.type],quantitize)
       else:
         regex += ''.join(self._expand(what.string))
-    print('regex: ' + regex)
     return regex
 
   def _last_replace(self, s, replace, replace_with):
@@ -119,8 +125,8 @@ class Parser(object):
 def main():
   # python parser.py [word]
   meta                = metamodel_from_file('Rules.tx')
-  dutch_present_tense = meta.model_from_file('dutch/prs.tx')
-  Parser(sys.argv[1]).parse(dutch_present_tense)
+  dutch_present_tense = meta.model_from_file(sys.argv[1])
+  Parser(sys.argv[2], sys.argv[3]).parse(dutch_present_tense)
 
 
 if __name__ == "__main__":

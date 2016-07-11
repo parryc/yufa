@@ -4,3 +4,10 @@ rule V_PRS:
   remove last 'en'
   if 'closed_double_consonant' then remove last C
   if 'open_single_vowel' then double last V
+
+conjugate:
+  2sg : + 't'
+  3sg : + 't'
+  1pl : base
+  2pl : base
+  3pl : base
