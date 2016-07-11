@@ -73,7 +73,8 @@ class Parser(object):
     regex = ''
     for what in whats:
       if self.name(what) == 'Quantity':
-        regex += '[{}]{{{}}}'.format(self.orthography[what.type],what.amount)
+        quantitize = '\\1' * (what.amount - 1)
+        regex += '([{}]){}'.format(self.orthography[what.type],quantitize)
       else:
         regex += ''.join(self._expand(what.string))
     print('regex: ' + regex)

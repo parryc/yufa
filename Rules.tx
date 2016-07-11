@@ -36,7 +36,11 @@ Otherwise:
 ;
 
 What:
-  Last | Quantity | And | OrthographyPart | STRING
+  Last | Quantity | And | Text
+;
+
+Text:
+  OrthographyPart | STRING
 ;
 
 OrthographyPart:
@@ -52,5 +56,5 @@ Quantity:
 ;
 
 And:
-  '+' string+=STRING
+  '+' string+=Text
 ;
