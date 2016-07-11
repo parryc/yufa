@@ -1,0 +1,4 @@
+*.pyc
+*.png
+*.dot
+.env/

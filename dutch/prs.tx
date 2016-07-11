@@ -1,0 +1,6 @@
+rule V_PRS:
+  set 'closed' if ends with 2 x C + 'en'
+  set 'open' if otherwise
+  remove last 'en'
+  if 'closed' then remove last C
+  if 'open' then double last V

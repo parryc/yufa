@@ -1,0 +1,56 @@
+Rule:
+  'rule' name=ID ':'
+    steps*=Step
+;
+
+Step:
+  Set | Remove | If
+;
+
+Set:
+  'set' status=STRING 'if' action=Action
+;
+
+If:
+  'if' condition=STRING 'then' action=Action
+;
+
+Action:
+  STRING | EndsWith | Double | Remove | Otherwise
+;
+
+EndsWith:
+  'ends with' what+=What
+;
+
+Double:
+  'double' what+=What
+;
+
+Remove:
+  'remove' what+=What
+;
+
+Otherwise:
+  'otherwise'
+;
+
+What:
+  Last | Quantity | And | OrthographyPart | STRING
+;
+
+OrthographyPart:
+  'C' | 'V'
+;
+
+Last:
+  'last' string+=What
+;
+
+Quantity:
+  amount=INT 'x' type=OrthographyPart
+;
+
+And:
+  '+' string+=STRING
+;
