@@ -1,0 +1,7 @@
+Orthography:
+  tokens+=Token
+;
+
+Token:
+  token=ID ':' value=ID
+;

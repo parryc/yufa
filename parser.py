@@ -6,19 +6,21 @@ import sys
 
 class Parser(object):
 
-  def __init__(self, word, group):
+  def __init__(self, word, group, orthography):
     self.context = word
     self.base    = word
     self.state   = ''
     self.status  = ''
     self.group   = group
 
-    self.orthography = {
-      'C' : 'bcdfghjklmnpqrstvwxyz'
-     ,'V' : 'aeiou'
-    }
+    ortho_meta  = metamodel_from_file('Orthography.tx')
+    orthography = ortho_meta.model_from_file(orthography)
 
+    self.orthography = {}
 
+    for token in orthography.tokens:
+      self.orthography[''.join(token.token)] = ''.join(token.value)
+    
   def __str__(self):
     return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
 
@@ -147,7 +149,9 @@ def main():
     group = sys.argv[4]
   else:
     group = ''
-  Parser(sys.argv[2], group).parse(model, sys.argv[3])
+  
+  orthography = sys.argv[1].split('/')[0] + '/orthography.tx'
+  Parser(sys.argv[2], group, orthography).parse(model, sys.argv[3])
 
 
 if __name__ == "__main__":
