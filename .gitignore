@@ -2,3 +2,4 @@
 *.png
 *.dot
 .env/
+.DS_Store
