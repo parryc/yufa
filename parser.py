@@ -51,9 +51,9 @@ class Parser(object):
     return command.__class__.__name__
 
   def parse_set(self, step):
-    if step.action == 'otherwise' and not self.status:
+    if self.name(step.action) == 'Otherwise' and not self.status:
       self.status = step.status
-    elif self.name(step.action) == 'EndsWith':
+    elif self.name(step.action) in ['EndsWith', 'Is']:
       regex = self.action_regex(step.action)
       if regex.search(self.context):
         self.status = step.status
@@ -79,8 +79,11 @@ class Parser(object):
 
   def action_regex(self, action):
     regex = ''
+    print(self.name(action))
     if self.name(action) == 'EndsWith':
       regex = '{}$'.format(self.what_regex(action.what))
+    elif self.name(action) == 'Is':
+      regex = '^{}$'.format(self.what_regex(action.what))
     else:
       regex = self.what_regex(action.what)
     return re.compile(regex)
@@ -97,10 +100,12 @@ class Parser(object):
 
   def _last_replace(self, s, replace, replace_with):
     matches = re.finditer(replace, s)
-    if matches:
-      # Find last match
-      for m in matches:
-        match = m
+    match   = None
+    # Find last match
+    for m in matches:
+      match = m
+
+    if match:
       start = s[:match.start(0)]
       end   = s[match.end(0):]
       return start + replace_with + end
@@ -109,10 +114,12 @@ class Parser(object):
 
   def _last_double(self, s, replace):
     matches = re.finditer(replace, s)
-    if matches:
-      # Find last match
-      for m in matches:
-        match = m
+    match   = None
+    # Find last match
+    for m in matches:
+      match = m
+
+    if match:
       text  = match.group(0)
       start = s[:match.start(0)]
       end   = s[match.end(0):]

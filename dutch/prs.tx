@@ -1,6 +1,6 @@
 rule V_PRS:
   set 'closed_double_consonant' if ends with 2 x C + 'en'
-  set 'open_single_vowel' if ends with + C + V + C + 'en'
+  set 'open_single_vowel' if is + C + V + C + 'en'
   remove last 'en'
   if 'closed_double_consonant' then remove last C
   if 'open_single_vowel' then double last V

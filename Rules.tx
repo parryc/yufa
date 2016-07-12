@@ -20,7 +20,7 @@ If:
 ;
 
 Action:
-  STRING | EndsWith | Double | Remove | Otherwise
+  STRING | EndsWith | Double | Remove | Otherwise | Is
 ;
 
 EndsWith:
@@ -39,6 +39,9 @@ Otherwise:
   'otherwise'
 ;
 
+Is:
+  'is' what+=What
+;
 What:
   Last | Quantity | And | Text
 ;
