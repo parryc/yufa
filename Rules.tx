@@ -1,3 +1,7 @@
+/*
+ * The basic RULE framework
+ */
+
 Rule:
   'rule' name=ID ':'
     steps*=Step
@@ -6,6 +10,12 @@ Rule:
   ('conjugation groups:'
     conjugation_groups*=ConjugationBlock)?
 ;
+
+/*
+ * Different types of steps 
+ * Steps are the lowest level action a conjugation can
+ * prescribe.
+ */
 
 Step:
   Set | Remove | If
@@ -19,6 +29,15 @@ If:
   'if' condition=STRING 'then' action=Action
 ;
 
+Remove:
+  'remove' what+=What
+;
+
+/*
+ * Actions describe what should be done as a result of one
+ * of the steps above
+ */
+
 Action:
   STRING | EndsWith | Double | Remove | Otherwise | Is
 ;
@@ -31,10 +50,6 @@ Double:
   'double' what+=What
 ;
 
-Remove:
-  'remove' what+=What
-;
-
 Otherwise:
   'otherwise'
 ;
@@ -42,16 +57,18 @@ Otherwise:
 Is:
   'is' what+=What
 ;
+
+/*
+ * What is...well, what you should look for!
+ * Remove What? Is What? Ends With What? etc. 
+ */
+
 What:
   Last | Quantity | And | Text
 ;
 
 Text:
   OrthographyPart | STRING
-;
-
-OrthographyPart:
-  'C' | 'V'
 ;
 
 Last:
@@ -66,7 +83,11 @@ And:
   '+' string+=Text
 ;
 
-
+/*
+ * The different parts of a conjugation
+ * description
+ * basically token (Pronoun)/value (Output) pairs
+ */
 
 ConjugationBlock:
   'group' group*=STRING
@@ -85,8 +106,17 @@ Base:
   'base'
 ;
 
+/*
+ * These are miscellaneous constraints on
+ * what can appear in the rules as references
+ */
+
 Pronoun:
   '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl'
+;
+
+OrthographyPart:
+  'C' | 'V'
 ;
 
 

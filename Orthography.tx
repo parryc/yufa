@@ -1,3 +1,7 @@
+/*
+ * Simple token:value description
+ */
+
 Orthography:
   tokens+=Token
 ;
