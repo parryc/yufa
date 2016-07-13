@@ -1,0 +1,12 @@
+/*
+ * A simple way of describing parameterized tests
+ * Base Conjugation (Extra parts) > Expected
+ */
+
+TestSet:
+  tests+=Test
+;
+
+Test:
+  base=ID conjugation=/[^\W]\w*\b/ form=ID extra*=ID '>' expected=ID
+;
