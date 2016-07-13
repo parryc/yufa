@@ -64,7 +64,7 @@ Is:
  */
 
 What:
-  Last | Quantity | And | Text
+  Last | Quantity | And | Or | Text
 ;
 
 Text:
@@ -81,6 +81,10 @@ Quantity:
 
 And:
   '+' string+=Text
+;
+
+Or:
+  '+(' string+=Text ')'
 ;
 
 /*

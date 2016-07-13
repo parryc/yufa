@@ -96,6 +96,8 @@ class Parser(object):
       if self.name(what) == 'Quantity':
         quantitize = '\\1' * (what.amount - 1)
         regex += '([{}]){}'.format(self.orthography[what.type],quantitize)
+      elif self.name(what) == 'Or':
+        regex += '({})?'.format(self._expand(what.string))
       else:
         regex += ''.join(self._expand(what.string))
     return regex
