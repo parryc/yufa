@@ -37,8 +37,6 @@ class Parser(object):
 
     self.conjugate(conjugations, form)
 
-    print('present: {}'.format(self))
-
   def conjugate(self, conjugations, form):
     for conjugation in conjugations:
       if conjugation.type[0] == form:
@@ -81,7 +79,7 @@ class Parser(object):
 
   def action_regex(self, action):
     regex = ''
-    print(self.name(action))
+
     if self.name(action) == 'EndsWith':
       regex = '{}$'.format(self.what_regex(action.what))
     elif self.name(action) == 'Is':
