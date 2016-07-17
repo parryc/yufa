@@ -27,7 +27,7 @@ class Parser(object):
   def __str__(self):
     return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
 
-  def setup(self, word, inflection_group=None, **attributes):
+  def setup(self, word, inflection_group='default', **attributes):
     self.context = word
     self.base    = word
     self.state   = ''
@@ -68,7 +68,7 @@ class Parser(object):
     # set the list of inflections to be the group
     # that matches
     for _group in self.model.inflection_groups:
-      if _group.group[0] is self.group:
+      if _group.group[0] == self.group:
         inflections = _group.inflections
 
     for inflection in inflections:
@@ -87,6 +87,9 @@ class Parser(object):
             self.context = self.base
           elif inf == 'nothing':
             continue
+          elif self.name(inf) == 'Minus':
+            subtraction = r'{}$'.format(inf.string)
+            self.context = re.sub(subtraction, '', self.context)
           else:
             addition = ''.join(inf.string)
             self.context = self.context + addition
@@ -220,7 +223,7 @@ def main():
       temp = args[pos]
       return args[pos]
     except Exception:
-      return None
+      return 'default'
 
   p = Parser(sys.argv[1])
 

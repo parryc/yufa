@@ -105,7 +105,11 @@ Inflection:
 ;
 
 InflectionText:
-  Nothing | Base | And | Text 
+  Nothing | Base | And | Minus | Text 
+;
+
+Minus:
+  '-' string=Text
 ;
 
 Base:

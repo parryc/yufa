@@ -6,6 +6,9 @@ luisteren 1sg prs > luister # since this is multisyllabic do not double vowel
 spellen 1sg prs > spel
 spellen 2sg prs > spelt
 spellen 1pl prs > spellen
+werken 1sg prs > werk
+werken 2sg prs > werkt
+werken 1pl prs > werken
 zetten 2sg prs > zet # do not double Ts at end of verbs
 zetten 3sg prs > zet # do not double Ts at end of verbs
 leiden 2sg prs > leidt # still add T at end of verb ending in D
@@ -16,6 +19,9 @@ lezen 1pl prs > lezen
 gaan 1sg prs > ga
 gaan 2sg prs > gaat
 gaan 1pl prs > gaan
+slaan 1sg prs > sla
+slaan 2sg prs > slaat
+slaan 1pl prs > slaan
 zien 1sg prs > zie
 zien 2sg prs > ziet
 zien 1pl prs > zien

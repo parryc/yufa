@@ -15,7 +15,7 @@ def additional_args(args, pos):
     temp = args[pos]
     return args[pos]
   except Exception:
-    return None
+    return 'default'
 
 @parameterized(load_test_cases)
 def test_from_function(file, language, base_word, form, inflection_type, expected, *args):

@@ -2,8 +2,11 @@ rule V_PRS:
   set 'closed_double_consonant' if ends with C+C+'en'
   set 'open_single_vowel' if is (C)+C+V+C+'en'
   set 'ending' to 'Ven' if ends with V+'en'
+  set 'ending' to 'aan' if ends with 'aan'
+  set 'group' to 'aan' if ends with 'aan'
 
   if 'ending' is 'Ven' then remove last 'n'
+  if 'ending' is 'aan' then remove last 'n'
   remove last 'en'
 
   set 'ending' to 'v' if ends with 'v'
@@ -15,8 +18,14 @@ rule V_PRS:
   if 'ending' is 'v' then change last 'v' to 'f'
   if 'ending' is 'z' then change last 'z' to 's'
 
-inflect:
-  2sg 3sg     : + 't' unless 'ending' is 't' then nothing
+inflection groups:
+  group 'default'
+  2sg 3sg     : +'t' unless 'ending' is 't' then nothing
+  1pl 2pl 3pl : base
+
+  group 'aan'
+  1sg         : -'a'
+  2sg 3sg     : +'t'
   1pl 2pl 3pl : base
 
 exceptions:
