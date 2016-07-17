@@ -4,14 +4,15 @@ rule V_PRS:
   remove last 'en'
   set 'ending' to 'v' if ends with 'v'
   set 'ending' to 'z' if ends with 'z'
+  set 'ending' to 't' if ends with 't'
   if 'closed_double_consonant' then remove last C
   if 'open_single_vowel' then double last V
   if 'ending' is 'v' then change last 'v' to 'f'
   if 'ending' is 'z' then change last 'z' to 's'
 
 inflect:
-  2sg : + 't'
-  3sg : + 't'
+  2sg : + 't' unless 'ending' is 't' then nothing
+  3sg : + 't' unless 'ending' is 't' then nothing
   1pl : base
   2pl : base
   3pl : base

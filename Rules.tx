@@ -99,15 +99,23 @@ InflectionBlock:
 ;
 
 Inflection:
-  type+=Pronoun ':' inflection+=InflectionText
+  type=Pronoun ':' inflection_parts+=InflectionText exception=AdHocException?
 ;
 
 InflectionText:
-  And | Text | Base
+  Nothing | Base | And | Text 
 ;
 
 Base:
   'base'
+;
+
+Nothing:
+  'nothing'
+;
+
+AdHocException:
+  'unless' attribute=STRING 'is' value=STRING 'then' alternative+=InflectionText
 ;
 
 /*

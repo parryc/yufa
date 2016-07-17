@@ -6,7 +6,8 @@ luisteren 1sg prs > luister # since this is multisyllabic do not double vowel
 spellen 1sg prs > spel
 spellen 2sg prs > spelt
 spellen 1pl prs > spellen
-zetten 2sg prs > zet # do not double Ts at end
+zetten 2sg prs > zet # do not double Ts at end of verbs
+zetten 3sg prs > zet # do not double Ts at end of verbs
 leiden 2sg prs > leidt # still add T at end of verb ending in D
 geven 1sg prs > geef # v goes to f in PRS at end end of verb
 geven 1pl prs > geven

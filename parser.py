@@ -55,10 +55,21 @@ class Parser(object):
         inflections = _group.inflections
 
     for inflection in inflections:
-      if inflection.type[0] == form:
-        for inf in inflection.inflection:
+      if inflection.type == form:
+        inflection_parts = inflection.inflection_parts
+
+        #If there is an individual exception for one
+        #of the inflections
+        if inflection.exception:
+          ex = inflection.exception
+          if self._get_status(ex.attribute) == ex.value:
+            inflection_parts = ex.alternative
+
+        for inf in inflection_parts:
           if inf == 'base':
             self.context = self.base
+          elif inf == 'nothing':
+            continue
           else:
             addition = ''.join(inf.string)
             self.context = self.context + addition
