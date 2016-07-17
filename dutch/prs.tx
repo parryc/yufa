@@ -5,7 +5,7 @@ rule V_PRS:
   if 'closed_double_consonant' then remove last C
   if 'open_single_vowel' then double last V
 
-conjugate:
+inflect:
   2sg : + 't'
   3sg : + 't'
   1pl : base

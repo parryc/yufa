@@ -29,18 +29,18 @@ class Parser(object):
     for step in model.steps:
       self._run(step)
 
-    conjugations = model.conjugations
+    inflections = model.inflections
 
-    for _group in model.conjugation_groups:
+    for _group in model.inflection_groups:
       if _group.group[0] is self.group:
-        conjugations = _group.conjugations
+        inflections = _group.inflections
 
-    self.conjugate(conjugations, form)
+    self.conjugate(inflections, form)
 
-  def conjugate(self, conjugations, form):
-    for conjugation in conjugations:
-      if conjugation.type[0] == form:
-        for c in conjugation.conjugation:
+  def conjugate(self, inflections, form):
+    for inflection in inflections:
+      if inflection.type[0] == form:
+        for c in inflection.inflection:
           if c == 'base':
             self.context = self.base
           else:

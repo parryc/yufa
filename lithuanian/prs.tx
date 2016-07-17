@@ -1,7 +1,7 @@
 rule V_PRS:
   remove last V
 
-conjugation groups:
+inflection groups:
   group 'A'
   1sg : + 'u'
   2sg : + 'i'

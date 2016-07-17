@@ -5,10 +5,10 @@
 Rule:
   'rule' name=ID ':'
     steps*=Step
-  ('conjugate:'
-    conjugations*=Conjugation)?
-  ('conjugation groups:'
-    conjugation_groups*=ConjugationBlock)?
+  ('inflect:'
+    inflections*=Inflection)?
+  ('inflection groups:'
+    inflection_groups*=InflectionBlock)?
 ;
 
 /*
@@ -93,16 +93,16 @@ Or:
  * basically token (Pronoun)/value (Output) pairs
  */
 
-ConjugationBlock:
+InflectionBlock:
   'group' group*=STRING
-  conjugations*=Conjugation
+  inflections*=Inflection
 ;
 
-Conjugation:
-  type+=Pronoun ':' conjugation+=ConjugationText
+Inflection:
+  type+=Pronoun ':' conjugation+=InflectionText
 ;
 
-ConjugationText:
+InflectionText:
   And | Text | Base
 ;
 
