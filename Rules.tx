@@ -70,11 +70,15 @@ Change:
  */
 
 What:
-  Last | And | Or | Text
+  Last | Quantity | And | Or | Text
 ;
 
 Text:
   OrthographyPart | STRING
+;
+
+Quantity:
+  amount=INT type=OrthographyPart
 ;
 
 Last:

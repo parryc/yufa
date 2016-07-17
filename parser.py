@@ -152,9 +152,13 @@ class Parser(object):
     regex = ''
     for what in whats:
       name   = self.name(what)
-      string = self._stringify(what.string)
+      if name not in ['Quantity']:
+        string = self._stringify(what.string)
 
-      if name == 'Or':
+      if self.name(what) == 'Quantity':
+        quantitize = '\\1' * (what.amount - 1)
+        regex += '([{}]){}'.format(self.orthography[what.type],quantitize)
+      elif name == 'Or':
         regex += '({})?'.format(self._expand(string))
       else:        
         regex += ''.join(self._expand(string))

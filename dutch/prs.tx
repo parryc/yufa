@@ -1,5 +1,5 @@
 rule V_PRS:
-  set 'closed_double_consonant' if ends with C+C+'en'
+  set 'closed_double_consonant' if ends with 2 C+'en'
   set 'open_single_vowel' if is (C)+C+V+C+'en'
   set 'ending' to 'Ven' if ends with V+'en'
   set 'ending' to 'aan' if ends with 'aan'
