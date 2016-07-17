@@ -39,7 +39,7 @@ Remove:
  */
 
 Action:
-  STRING | EndsWith | Double | Remove | Otherwise | Is
+  STRING | EndsWith | Double | Change | Remove | Otherwise | Is
 ;
 
 EndsWith:
@@ -56,6 +56,10 @@ Otherwise:
 
 Is:
   'is' what+=What
+;
+
+Change:
+  'change' what+=What 'to' to=STRING
 ;
 
 /*

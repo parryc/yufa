@@ -86,6 +86,13 @@ class Parser(object):
     else:
       self.context = regex.sub('',self.context)
 
+  def parse_change(self, step):
+    regex = re.compile(self.what_regex(step.what))
+    if self.name(step.what[0]) == 'Last':
+      self.context = self._last_replace(self.context, regex, step.to)
+    else:
+      self.context = regex.sub(step.to,self.context)
+
   def parse_double(self, step):
     regex = '({})'.format(self.what_regex(step.what))
     regex = re.compile(regex)
@@ -150,7 +157,6 @@ class Parser(object):
       return start + text + text + end
     else:
       return s
-
 
   def _expand(self, string):
     if string in self.orthography:
