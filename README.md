@@ -16,15 +16,13 @@ TODO :)
 
 _yufa_ uses [textX](http://igordejanovic.net/textX/) to parse the description language. It also has some great visualization tools, with the help of [graphviz](http://www.graphviz.org/) (which provides the _dot_ program).
 
-`>>> from textx.export import model_export`
-
-`>>> meta  = metamodel_from_file('Rules.tx')`
-
-`>>> model = meta.model_from_file('{path to ruleset}')`
-
-`>>> model_export(model, 'program.dot')`
-
-`$ dot -Tpng program.dot -O program.dot.png`
+```
+>>> from textx.export import model_export
+>>> meta  = metamodel_from_file('Rules.tx')
+>>> model = meta.model_from_file('{path to ruleset}')
+>>> model_export(model, 'program.dot')
+$ dot -Tpng program.dot -O program.dot.png
+```
 
 ### command line
 

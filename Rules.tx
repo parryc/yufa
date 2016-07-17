@@ -22,7 +22,7 @@ Step:
 ;
 
 Set:
-  'set' status=STRING 'if' action=Action
+  'set' status=STRING 'to'? value=STRING? 'if' action=Action
 ;
 
 If:
@@ -64,7 +64,7 @@ Is:
  */
 
 What:
-  Last | Quantity | And | Or | Text
+  Last | And | Or | Text
 ;
 
 Text:
@@ -72,19 +72,15 @@ Text:
 ;
 
 Last:
-  'last' string+=What
-;
-
-Quantity:
-  amount=INT 'x' type=OrthographyPart
+  'last' string+=Text
 ;
 
 And:
-  '+' string+=Text
+  '+'? string+=Text
 ;
 
 Or:
-  '+(' string+=Text ')'
+  '+'? '(' string+=Text ')'
 ;
 
 /*

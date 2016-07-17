@@ -9,5 +9,5 @@ TestSet:
 ;
 
 Test:
-  base=ID conjugation=/[^\W]\w*\b/ form=ID extra*=ID '>' expected=ID
+  base=ID conjugation=/[^\W]\w*\b/ form=ID extra*=ID '>' expected=ID '#'? comment+=ID[eolterm]?
 ;

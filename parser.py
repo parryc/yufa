@@ -72,7 +72,13 @@ class Parser(object):
     elif self.name(step.action) in ['EndsWith', 'Is']:
       regex = self.action_regex(step.action)
       if regex.search(self.context):
-        self.status = step.status
+        # If we're setting a specific attribute, rather than
+        # the generic catch all 'status' attribute
+        if step.value:
+          self.setattr(step.status, step.value)
+          print(self.ending)
+        else:
+          self.status = step.status
 
   def parse_remove(self, step):
     regex = re.compile(self.what_regex(step.what))
@@ -107,13 +113,13 @@ class Parser(object):
   def what_regex(self, whats):
     regex = ''
     for what in whats:
-      if self.name(what) == 'Quantity':
-        quantitize = '\\1' * (what.amount - 1)
-        regex += '([{}]){}'.format(self.orthography[what.type],quantitize)
-      elif self.name(what) == 'Or':
-        regex += '({})?'.format(self._expand(what.string))
-      else:
-        regex += ''.join(self._expand(what.string))
+      name   = self.name(what)
+      string = self._stringify(what.string)
+
+      if name == 'Or':
+        regex += '({})?'.format(self._expand(string))
+      else:        
+        regex += ''.join(self._expand(string))
     return regex
 
   def _last_replace(self, s, replace, replace_with):
@@ -147,11 +153,16 @@ class Parser(object):
 
 
   def _expand(self, string):
-    string = ''.join(string)
     if string in self.orthography:
       return '[{}]'.format(self.orthography[string])
     else:
       return string
+
+  def _stringify(self, string):
+    if isinstance(string[0], str):
+      return string[0]
+    else:
+      return string[0].string
 
   def _run(self, command):
     getattr(self, 'parse_'+self.name(command).lower())(command)

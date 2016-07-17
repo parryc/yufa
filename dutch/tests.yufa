@@ -1,7 +1,14 @@
 -dutch
-spelen 1sg prs > speel
+spelen 1sg prs > speel # verbs with single long vowels in stem double vowel in PRS
 spelen 2sg prs > speelt
 spelen 1pl prs > spelen
+luisteren 1sg prs > luister # since this is multisyllabic do not double vowel
 spellen 1sg prs > spel
 spellen 2sg prs > spelt
 spellen 1pl prs > spellen
+zetten 2sg prs > zet # do not double Ts at end
+leiden 2sg prs > leidt # still add T at end of verb ending in D
+geven 1sg prs > geef # v goes to f in PRS at end end of verb
+geven 1pl prs > geven
+lezen 1sg prs > lees # z goes to s in PRS at end of verb
+lezen 1pl prs > lezen
