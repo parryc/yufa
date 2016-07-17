@@ -6,6 +6,7 @@ rule V_PRS:
   set 'ending' to 'z' if ends with 'z'
   if 'closed_double_consonant' then remove last C
   if 'open_single_vowel' then double last V
+  if 'ending' is 'v' then remove last 'v'
 
 inflect:
   2sg : + 't'

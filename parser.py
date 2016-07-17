@@ -95,7 +95,8 @@ class Parser(object):
       self.context = regex.sub(r'\1\1',self.context)
 
   def parse_if(self, step):
-    if self.status == step.condition:
+    if self._get_status() == step.condition or\
+       self._get_status(step.condition) == step.value:
       self._run(step.action)
 
   def action_regex(self, action):
@@ -167,7 +168,10 @@ class Parser(object):
     self.status[key] = value
 
   def _get_status(self, key='default'):
-    return self.status[key]
+    try:
+      return self.status[key]
+    except Exception:
+      return None
 
   def _run(self, command):
     getattr(self, 'parse_'+self.name(command).lower())(command)
