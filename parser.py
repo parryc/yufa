@@ -8,12 +8,13 @@ import os
 class Parser(object):
 
   def __init__(self, language):
-    self.context  = ''
-    self.base     = ''
-    self.state    = ''
-    self.group    = ''
-    self.language = language
-    self.status   = {'default': ''}
+    self.context    = ''
+    self.base       = ''
+    self.state      = ''
+    self.group      = ''
+    self.language   = language
+    self.status     = {'default': ''}
+    self.exceptions = {} 
 
     ortho_meta  = metamodel_from_file('Orthography.tx')
     orthography = ortho_meta.model_from_file(os.path.join(self.language, 'orthography.tx'))
@@ -41,11 +42,22 @@ class Parser(object):
     model = meta.model_from_file(os.path.join(self.language,inflection_type + '.tx'))
     self.model = model
     self.state = model.name
+
+    for exception in self.model.exceptions:
+      forms = {}
+      for e in exception.exceptions:
+        forms[e.type] = e.override
+      self.exceptions[exception.base_word] = forms
+
     for step in model.steps:
       self._run(step)
 
   def inflect(self, form):
     inflections = self.model.inflections
+
+    if self.base in self.exceptions:
+      self.context = self.exceptions[self.base][form]
+      return #End if there is an exception
 
     # If the inflectional form has different groups
     # set the list of inflections to be the group

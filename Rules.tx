@@ -9,6 +9,8 @@ Rule:
     inflections*=Inflection)?
   ('inflection groups:'
     inflection_groups*=InflectionBlock)?
+  ('exceptions:'
+    exceptions*=ExceptionBlock)?
 ;
 
 /*
@@ -117,6 +119,20 @@ Nothing:
 AdHocException:
   'unless' attribute=STRING 'is' value=STRING 'then' alternative+=InflectionText
 ;
+
+/*
+ * Describing an exception to the inflection rule
+ */
+
+ExceptionBlock:
+  '-' base_word=STRING
+  exceptions*=Exception
+;
+
+Exception:
+  type=Pronoun ':' override=STRING
+;
+
 
 /*
  * These are miscellaneous constraints on
