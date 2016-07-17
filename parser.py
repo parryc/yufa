@@ -194,7 +194,10 @@ class Parser(object):
       return string[0].string
 
   def _set_status(self, value, key='default'):
-    self.status[key] = value
+    if key == 'group'
+      self.group = value
+    else:
+      self.status[key] = value
 
   def _get_status(self, key='default'):
     try:
