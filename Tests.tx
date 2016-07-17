@@ -4,6 +4,7 @@
  */
 
 TestSet:
+  '-' language=ID
   tests+=Test
 ;
 

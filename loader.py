@@ -17,8 +17,10 @@ class Loader(object):
     for file in files:
       model = meta.model_from_file(file)
 
+      language = model.language
       for test in model.tests:
-        tests.append((file, test.base, test.conjugation, test.form, test.expected) + tuple(test.extra))
+        tests.append((file, language, test.base, test.conjugation,
+                      test.form, test.expected) + tuple(test.extra))
 
     return tests
 

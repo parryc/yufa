@@ -3,18 +3,20 @@
 from textx.metamodel import metamodel_from_file
 import re
 import sys
+import os
 
 class Parser(object):
 
-  def __init__(self, word, group, orthography):
-    self.context = word
-    self.base    = word
-    self.state   = ''
-    self.status  = ''
-    self.group   = group
+  def __init__(self, language):
+    self.context  = ''
+    self.base     = ''
+    self.state    = ''
+    self.status   = ''
+    self.group    = ''
+    self.language = language
 
     ortho_meta  = metamodel_from_file('Orthography.tx')
-    orthography = ortho_meta.model_from_file(orthography)
+    orthography = ortho_meta.model_from_file(os.path.join(self.language, 'orthography.tx'))
 
     self.orthography = {}
 
@@ -24,27 +26,41 @@ class Parser(object):
   def __str__(self):
     return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
 
-  def parse(self, model, form):
+  def setup(self, word, inflection_group=None, **attributes):
+    self.context = word
+    self.base    = word
+    self.state   = ''
+    self.status  = ''
+    self.group   = inflection_group
+
+    for key, value in attributes:
+      self.setattr(key, value)
+
+  def set_context(self, inflection_type):
+    meta  = metamodel_from_file('Rules.tx')
+    model = meta.model_from_file(os.path.join(self.language,inflection_type + '.tx'))
+    self.model = model
     self.state = model.name
     for step in model.steps:
       self._run(step)
 
-    inflections = model.inflections
+  def inflect(self, form):
+    inflections = self.model.inflections
 
-    for _group in model.inflection_groups:
+    # If the inflectional form has different groups
+    # set the list of inflections to be the group
+    # that matches
+    for _group in self.model.inflection_groups:
       if _group.group[0] is self.group:
         inflections = _group.inflections
 
-    self.conjugate(inflections, form)
-
-  def conjugate(self, inflections, form):
     for inflection in inflections:
       if inflection.type[0] == form:
-        for c in inflection.inflection:
-          if c == 'base':
+        for inf in inflection.inflection:
+          if inf == 'base':
             self.context = self.base
           else:
-            addition = ''.join(c.string)
+            addition = ''.join(inf.string)
             self.context = self.context + addition
 
   def name(self, command):

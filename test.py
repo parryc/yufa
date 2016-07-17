@@ -10,15 +10,26 @@ def load_test_cases():
   loader = Loader(pwd)
   return loader.generate_tests()
 
-@parameterized(load_test_cases)
-def test_from_function(file, base, conjugation, form, expected, *args):
-  meta  = metamodel_from_file('Rules.tx')
-  form  = file.replace('tests.yufa',form + '.tx')
-  ortho = file.replace('tests.yufa','orthography.tx')
-  model = meta.model_from_file(form)
+def additional_args(args, pos):
+  try:
+    temp = args[pos]
+    return args[pos]
+  except Exception:
+    return None
 
-  p = Parser(base, '', os.path.join(ortho))
-  p.parse(model, conjugation)
+@parameterized(load_test_cases)
+def test_from_function(file, language, base_word, form, inflection_type, expected, *args):
+  """
+    Additional args:
+    0 = inflection group
+  """
+  p = Parser(language)
+
+  inflection_group = additional_args(args, 0)
+
+  p.setup(base_word, inflection_group)
+  p.set_context(inflection_type)
+  p.inflect(form)
 
   parsed = p.context
   assert expected == parsed
