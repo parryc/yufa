@@ -11,9 +11,9 @@ class Parser(object):
     self.context  = ''
     self.base     = ''
     self.state    = ''
-    self.status   = ''
     self.group    = ''
     self.language = language
+    self.status   = {'default': ''}
 
     ortho_meta  = metamodel_from_file('Orthography.tx')
     orthography = ortho_meta.model_from_file(os.path.join(self.language, 'orthography.tx'))
@@ -30,11 +30,11 @@ class Parser(object):
     self.context = word
     self.base    = word
     self.state   = ''
-    self.status  = ''
+    self.status  = {'default': ''}
     self.group   = inflection_group
 
     for key, value in attributes:
-      self.setattr(key, value)
+      self.extra[key] = value
 
   def set_context(self, inflection_type):
     meta  = metamodel_from_file('Rules.tx')
@@ -68,17 +68,16 @@ class Parser(object):
 
   def parse_set(self, step):
     if self.name(step.action) == 'Otherwise' and not self.status:
-      self.status = step.status
+      self._set_status(step.status)
     elif self.name(step.action) in ['EndsWith', 'Is']:
       regex = self.action_regex(step.action)
       if regex.search(self.context):
         # If we're setting a specific attribute, rather than
         # the generic catch all 'status' attribute
         if step.value:
-          self.setattr(step.status, step.value)
-          print(self.ending)
+          self._set_status(step.value, step.status)
         else:
-          self.status = step.status
+          self._set_status(step.status)
 
   def parse_remove(self, step):
     regex = re.compile(self.what_regex(step.what))
@@ -164,22 +163,33 @@ class Parser(object):
     else:
       return string[0].string
 
+  def _set_status(self, value, key='default'):
+    self.status[key] = value
+
+  def _get_status(self, key='default'):
+    return self.status[key]
+
   def _run(self, command):
     getattr(self, 'parse_'+self.name(command).lower())(command)
 
 def main():
-  # python parser.py [word]
-  meta  = metamodel_from_file('Rules.tx')
-  model = meta.model_from_file(sys.argv[1])
+  # python parser.py [language base form inflection_group additional1 additional2]
+  def additional_args(args, pos):
+    try:
+      temp = args[pos]
+      return args[pos]
+    except Exception:
+      return None
 
-  if len(sys.argv) == 5:
-    group = sys.argv[4]
-  else:
-    group = ''
-  
-  orthography = sys.argv[1].split('/')[0] + '/orthography.tx'
-  Parser(sys.argv[2], group, orthography).parse(model, sys.argv[3])
+  p = Parser(sys.argv[1])
 
+  inflection_group = additional_args(sys.argv, 5)
+
+  p.setup(sys.argv[2], inflection_group)
+  p.set_context(sys.argv[4])
+  p.inflect(sys.argv[3])
+
+  print(p)
 
 if __name__ == "__main__":
     main()
