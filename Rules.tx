@@ -101,7 +101,7 @@ InflectionBlock:
 ;
 
 Inflection:
-  type=Pronoun ':' inflection_parts+=InflectionText exception=AdHocException?
+  type+=Pronoun ':' inflection_parts+=InflectionText exception=AdHocException?
 ;
 
 InflectionText:
@@ -130,9 +130,12 @@ ExceptionBlock:
 ;
 
 Exception:
-  type=Pronoun ':' override=STRING
+  type+=Pronoun ':' override=ExceptionText
 ;
 
+ExceptionText:
+  Base | STRING
+;
 
 /*
  * These are miscellaneous constraints on

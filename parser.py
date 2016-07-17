@@ -46,7 +46,8 @@ class Parser(object):
     for exception in self.model.exceptions:
       forms = {}
       for e in exception.exceptions:
-        forms[e.type] = e.override
+        for t in e.type:
+          forms[t] = e.override
       self.exceptions[exception.base_word] = forms
 
     for step in model.steps:
@@ -56,7 +57,11 @@ class Parser(object):
     inflections = self.model.inflections
 
     if self.base in self.exceptions:
-      self.context = self.exceptions[self.base][form]
+      exception = self.exceptions[self.base][form]
+      if exception == 'base':
+        self.context = self.base
+      else:
+        self.context = self.exceptions[self.base][form]
       return #End if there is an exception
 
     # If the inflectional form has different groups
@@ -67,7 +72,7 @@ class Parser(object):
         inflections = _group.inflections
 
     for inflection in inflections:
-      if inflection.type == form:
+      if form in inflection.type:
         inflection_parts = inflection.inflection_parts
 
         #If there is an individual exception for one
@@ -194,7 +199,7 @@ class Parser(object):
       return string[0].string
 
   def _set_status(self, value, key='default'):
-    if key == 'group'
+    if key == 'group':
       self.group = value
     else:
       self.status[key] = value

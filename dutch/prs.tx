@@ -16,25 +16,21 @@ rule V_PRS:
   if 'ending' is 'z' then change last 'z' to 's'
 
 inflect:
-  2sg : + 't' unless 'ending' is 't' then nothing
-  3sg : + 't' unless 'ending' is 't' then nothing
-  1pl : base
-  2pl : base
-  3pl : base
+  2sg 3sg     : + 't' unless 'ending' is 't' then nothing
+  1pl 2pl 3pl : base
 
 exceptions:
+    -'zijn'
+    1sg         : 'ben'
+    2sg         : 'bent'
+    3sg         : 'is'
+    1pl 2pl 3pl : base
+
     -'gaan'
-    1sg : 'ga'
-    2sg : 'gaat'
-    3sg : 'gaat'
-    1pl : 'gaan'
-    2pl : 'gaan'
-    3pl : 'gaan'
+    1sg         : 'ga'
+    2sg 3sg     : 'gaat'
+    1pl 2pl 3pl : base
 
     -'mogen'
-    1sg : 'mag'
-    2sg : 'mag'
-    3sg : 'mag'
-    1pl : 'mogen'
-    2pl : 'mogen'
-    3pl : 'mogen'
+    1sg 2sg 3sg : 'mag'
+    1pl 2pl 3pl : base
