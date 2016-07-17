@@ -11,12 +11,13 @@ def load_test_cases():
   return loader.generate_tests()
 
 @parameterized(load_test_cases)
-def test_from_function(base, conjugation, form, expected):
-  pwd   = os.path.dirname(os.path.realpath(__file__))
+def test_from_function(file, base, conjugation, form, expected, *args):
   meta  = metamodel_from_file('Rules.tx')
-  model = meta.model_from_file(os.path.join(pwd,form+'.tx'))
+  form  = file.replace('tests.yufa',form + '.tx')
+  ortho = file.replace('tests.yufa','orthography.tx')
+  model = meta.model_from_file(form)
 
-  p = Parser(base, '', os.path.join(pwd,'orthography.tx'))
+  p = Parser(base, '', os.path.join(ortho))
   p.parse(model, conjugation)
 
   parsed = p.context
