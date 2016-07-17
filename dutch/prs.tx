@@ -1,6 +1,6 @@
 rule V_PRS:
   set 'closed_double_consonant' if ends with 2 C+'en'
-  set 'open_single_vowel' if is (C)+C+V+C+'en'
+  set 'open_single_vowel' if is (C)+(C)+C+V+C+'en'
   set 'ending' to 'Ven' if ends with V+'en'
   set 'ending' to 'aan' if ends with 'aan'
   set 'group' to 'aan' if ends with 'aan'
@@ -35,11 +35,28 @@ exceptions:
     3sg         : 'is'
     1pl 2pl 3pl : base
 
-    -'gaan'
-    1sg         : 'ga'
-    2sg 3sg     : 'gaat'
+    -'hebben'
+    1sg         : 'heb'
+    2sg         : 'hebt'
+    3sg         : 'heeft'
     1pl 2pl 3pl : base
 
     -'mogen'
     1sg 2sg 3sg : 'mag'
+    1pl 2pl 3pl : base
+
+    -'kunnen'
+    1sg 2sg 3sg : 'kan'
+    1pl 2pl 3pl : base
+
+    -'zullen'
+    1sg 2sg 3sg : 'zal'
+    1pl 2pl 3pl : base
+
+    -'moeten'
+    1sg 2sg 3sg : 'moet'
+    1pl 2pl 3pl : base
+
+    -'willen'
+    1sg 2sg 3sg : 'wil'
     1pl 2pl 3pl : base

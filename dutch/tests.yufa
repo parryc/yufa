@@ -2,6 +2,7 @@
 spelen 1sg prs > speel # verbs with single long vowels in stem double vowel in PRS
 spelen 2sg prs > speelt
 spelen 1pl prs > spelen
+spreken 1sg prs > spreek
 luisteren 1sg prs > luister # since this is multisyllabic do not double vowel
 spellen 1sg prs > spel
 spellen 2sg prs > spelt
