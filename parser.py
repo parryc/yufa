@@ -51,6 +51,8 @@ class Parser(object):
       self.exceptions[exception.base_word] = forms
 
     for step in model.steps:
+      if step == 'none':
+        continue
       self._run(step)
 
   def inflect(self, form):
@@ -90,6 +92,10 @@ class Parser(object):
           elif self.name(inf) == 'Minus':
             subtraction = r'{}$'.format(inf.string)
             self.context = re.sub(subtraction, '', self.context)
+          elif self.name(inf) == 'Preword':
+            self.context = inf.string + ' ' + self.context
+          elif self.name(inf) == 'Prefix':
+            self.context = inf.string + self.context
           else:
             addition = ''.join(inf.string)
             self.context = self.context + addition

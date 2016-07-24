@@ -20,7 +20,7 @@ Rule:
  */
 
 Step:
-  Set | Remove | If
+  Set | Remove | If | None
 ;
 
 Set:
@@ -33,6 +33,10 @@ If:
 
 Remove:
   'remove' what+=What
+;
+
+None:
+  'none'
 ;
 
 /*
@@ -109,7 +113,15 @@ Inflection:
 ;
 
 InflectionText:
-  Nothing | Base | And | Minus | Text 
+  Preword | Prefix | Nothing | Base | And | Minus  | Text 
+;
+
+Preword:
+  string=Text '_'
+;
+
+Prefix:
+  string=Text '>'
 ;
 
 Minus:

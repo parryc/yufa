@@ -31,5 +31,6 @@ def test_from_function(file, language, base_word, form, inflection_type, expecte
   p.set_context(inflection_type)
   p.inflect(form)
 
-  parsed = p.context
+  parsed   = p.context
+  expected = ' '.join(expected)
   assert expected == parsed

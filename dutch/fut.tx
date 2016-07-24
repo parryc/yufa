@@ -1,0 +1,8 @@
+rule FUT:
+  none
+
+inflection groups:
+  group 'default'
+  1sg         : 'ga'_
+  2sg 3sg     : 'gaat'_
+  1pl 2pl 3pl : 'gaan'_

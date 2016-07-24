@@ -1,4 +1,4 @@
-rule V_PRS:
+rule PRS:
   set 'closed_double_consonant' if ends with 2 C+'en'
   set 'open_single_vowel' if is (C)+(C)+C+V+C+'en'
   set 'ending' to 'Ven' if ends with V+'en'
