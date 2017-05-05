@@ -26,10 +26,11 @@ $ dot -Tpng program.dot -O program.dot.png
 
 ### command line
 
-`python parser.py {language}/{ruleset}.tx {word} {pronoun} {conjugation_group}[optional]`
+`python parser.py {language} {word} {pronoun} {ruleset} {conjugation_group}[optional]`
 
 For example:
 
-* `python parser.py dutch/prs.tx nemen 1sg` will result in `neem`.
-* `python parser.py lithuanian/prs.tx dirba 1sg A` will result in `dirbu`. The `A` indicates that the verb _dirbti_ (seen there in the 3 person present form) is an _A_ class verb.
+* `python parser.py dutch nemen 1sg prs` will result in `neem`.
+* `python parser.py lithuanian dirba 1sg prs A` will result in `dirbu`. The `A` indicates that the verb _dirbti_ (seen there in the 3 person present form) is an _A_ class verb.
+* `python parser.py russian работать 1sg prs` will result in `работаю`.
 

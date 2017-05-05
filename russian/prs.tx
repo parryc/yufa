@@ -1,0 +1,11 @@
+rule PRS:
+  remove last 'ть'
+
+inflection groups:
+  group 'default'
+  1sg : +'ю'
+  2sg : +'ешь'
+  3sg : +'ет'
+  1pl : +'ем'
+  2pl : +'ете'
+  3pl : +'ют'
