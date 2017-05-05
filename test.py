@@ -2,8 +2,8 @@ from nose_parameterized import parameterized, param
 from textx.metamodel import metamodel_from_file
 import nose2
 import os
-from yufa.parser import Parser
-from yufa.loader import Loader
+from parser import Parser
+from loader import Loader
 
 def load_test_cases():
   pwd    = os.path.dirname(os.path.realpath(__file__))

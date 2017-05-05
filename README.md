@@ -34,3 +34,7 @@ For example:
 * `python parser.py lithuanian dirba 1sg prs A` will result in `dirbu`. The `A` indicates that the verb _dirbti_ (seen there in the 3 person present form) is an _A_ class verb.
 * `python parser.py russian работать 1sg prs` will result in `работаю`.
 
+### testing
+
+Tests with nose: `python -m nose2`
+
