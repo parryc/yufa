@@ -39,9 +39,10 @@ class Parser(object):
 
   def set_context(self, inflection_type):
     meta  = metamodel_from_file('Rules.tx')
-    model = meta.model_from_file(os.path.join(self.language,inflection_type + '.tx'))
+    model = meta.model_from_file(os.path.join(self.language, inflection_type + '.tx'))
     self.model = model
     self.state = model.name
+    self.inflection_type = inflection_type
 
     for exception in self.model.exceptions:
       forms = {}
@@ -55,7 +56,13 @@ class Parser(object):
         continue
       self._run(step)
 
-  def inflect(self, form):
+  def inflect(self, form, reset=True):
+    # Not resetting the parser will preserve the context between
+    # calls of inflect
+    if reset:
+      self.context = self.base
+      self.set_context(self.inflection_type)
+
     inflections = self.model.inflections
 
     if self.base in self.exceptions:
@@ -77,8 +84,8 @@ class Parser(object):
       if form in inflection.type:
         inflection_parts = inflection.inflection_parts
 
-        #If there is an individual exception for one
-        #of the inflections
+        # If there is an individual exception for one
+        # of the inflections
         if inflection.exception:
           ex = inflection.exception
           if self._get_status(ex.attribute) == ex.value:
