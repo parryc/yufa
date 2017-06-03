@@ -100,6 +100,8 @@ class Parser(object):
             addition = ''.join(inf.string)
             self.context = self.context + addition
 
+    return self.context
+
   def name(self, command):
     return command.__class__.__name__
 
