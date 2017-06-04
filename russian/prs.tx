@@ -1,4 +1,8 @@
 rule PRS:
+  set 'group' to 'class 2' if ends with 'ить'
+  set 'group' to 'class 2' if ends with 'еть'
+
+  if 'group' is 'class 2' then remove last V+'ть'
   remove last 'ть'
 
 inflection groups:
@@ -9,3 +13,11 @@ inflection groups:
   1pl : +'ем'
   2pl : +'ете'
   3pl : +'ют'
+
+  group 'class 2'
+  1sg : +'ю'
+  2sg : +'ишь'
+  3sg : +'ит'
+  1pl : +'им'
+  2pl : +'ите'
+  3pl : +'ят'

@@ -32,7 +32,7 @@ def main():
   size   = max(sg_max, pl_max)
 
   header  = print_row('sg', 'pl', size)
-  divider = '{}+{}'.format('-'.ljust(size, '-'), '-'.ljust(size, '-'))
+  divider = '{}|{}'.format('-'.ljust(size, '-'), '-'.ljust(size, '-'))
   table   = [header, divider]
   for idx, val in enumerate(singular_inflected):
     table.append(print_row(val, plural_inflected[idx], size))

@@ -25,7 +25,7 @@ class Parser(object):
       self.orthography[''.join(token.token)] = ''.join(token.value)
     
   def __str__(self):
-    return '{} is now {} [{}, {}]'.format(self.base, self.context, self.state, self.status)
+    return '{} is now {} [{}, {}] group={}'.format(self.base, self.context, self.state, self.status, self.group)
 
   def setup(self, word, inflection_group='default', **attributes):
     self.context = word
@@ -148,8 +148,16 @@ class Parser(object):
       self.context = regex.sub(r'\1\1',self.context)
 
   def parse_if(self, step):
+    """
+      Parse an if statement.
+
+      if {step.condition} then ==> check against the default status.
+      if {step.condition} is {step.vaue} then ==> check if the status[condition] is the value
+      if 'group' is {step.value} then ==> check if the group is set to step.value
+    """
     if self._get_status() == step.condition or\
-       self._get_status(step.condition) == step.value:
+       self._get_status(step.condition) == step.value or\
+       (step.condition == 'group' and self.group == step.value):
       self._run(step.action)
 
   def action_regex(self, action):
