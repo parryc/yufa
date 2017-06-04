@@ -20,7 +20,7 @@ Rule:
  */
 
 Step:
-  Set | Remove | If | None
+  Set | Add | Remove | If | None
 ;
 
 Set:
@@ -35,6 +35,10 @@ Remove:
   'remove' what+=What
 ;
 
+Add:
+  'add' what+=What
+;
+
 None:
   'none'
 ;
@@ -45,7 +49,7 @@ None:
  */
 
 Action:
-  STRING | EndsWith | Double | Change | Remove | Otherwise | Is
+  STRING | EndsWith | Double | Change | Add | Remove | Otherwise | Is
 ;
 
 EndsWith:

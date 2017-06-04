@@ -125,6 +125,9 @@ class Parser(object):
         else:
           self._set_status(step.status)
 
+  def parse_add(self, step):
+    self.context += self._stringify(step.what)[0]
+
   def parse_remove(self, step):
     regex = re.compile(self.what_regex(step.what))
     if self.name(step.what[0]) == 'Last':
