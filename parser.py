@@ -109,6 +109,19 @@ class Parser(object):
 
     return self.context
 
+  def suffix(self, suffix):
+    suffixes = self.model.suffixes
+    for _suffix in suffixes:
+      if _suffix.suffix[0] == suffix:
+        suffix_steps = _suffix.steps
+
+    for step in suffix_steps:
+      if step == 'none':
+        continue
+      self._run(step)
+
+    return self.context
+
   def name(self, command):
     return command.__class__.__name__
 
@@ -257,13 +270,24 @@ def main():
     except Exception:
       return 'default'
 
-  p = Parser(sys.argv[1])
+  def set_suffixes(args):
+    """
+      Set suffixes if they begin with a +
+    """
+    if len(args) > 5:
+      return [arg[1:] for arg in args if arg[0] == '+']
 
+  p = Parser(sys.argv[1])
+  suffixes = set_suffixes(sys.argv)
   inflection_group = additional_args(sys.argv, 5)
 
   p.setup(sys.argv[2], inflection_group)
   p.set_context(sys.argv[4])
   p.inflect(sys.argv[3])
+
+  if suffixes:
+    for suffix in suffixes:
+      p.suffix(suffix)
 
   print(p)
 

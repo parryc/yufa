@@ -17,6 +17,12 @@ def additional_args(args, pos):
   except Exception:
     return 'default'
 
+def set_suffixes(args):
+  """
+    Set suffixes if they begin with a +
+  """
+  return [arg[1:] for arg in args if arg[0] == '+']
+
 @parameterized(load_test_cases)
 def test_from_function(file, language, base_word, form, inflection_type, expected, *args):
   """
@@ -26,10 +32,16 @@ def test_from_function(file, language, base_word, form, inflection_type, expecte
   p = Parser(language)
 
   inflection_group = additional_args(args, 0)
+  suffixes = set_suffixes(args)
 
   p.setup(base_word, inflection_group)
   p.set_context(inflection_type)
   p.inflect(form)
+
+  if suffixes:
+    for suffix in suffixes:
+      p.suffix(suffix)
+
 
   parsed   = p.context
   expected = ' '.join(expected)

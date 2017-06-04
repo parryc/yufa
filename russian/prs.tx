@@ -21,3 +21,8 @@ inflection groups:
   1pl : +'им'
   2pl : +'ите'
   3pl : +'ят'
+
+suffixes:
+  suffix 'REFL'
+  set 'ending' to 'vowel' if ends with V
+  if 'ending' is 'vowel' then add 'сь' otherwise add 'ся'

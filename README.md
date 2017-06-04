@@ -26,13 +26,16 @@ $ dot -Tpng program.dot -O program.dot.png
 
 ### command line
 
-`python parser.py {language} {word} {pronoun} {ruleset} {conjugation_group}[optional]`
+`python parser.py {language} {word} {pronoun} {ruleset} {additional args}[optional]`
+
+If an additional arg is prefixed with a `+` it is treated as a suffix. Ex. `+REFL` would be treated as the reflexive suffix (assuming it is defined) and added after the verb is conjugated.
 
 For example:
 
 * `python parser.py dutch nemen 1sg prs` will result in `neem`.
 * `python parser.py lithuanian dirba 1sg prs A` will result in `dirbu`. The `A` indicates that the verb _dirbti_ (seen there in the 3 person present form) is an _A_ class verb.
 * `python parser.py russian работать 1sg prs` will result in `работаю`.
+* `python parser.py russian говорить 1pl prs +REFL` will result in `говоримся`.
 
 ### testing
 

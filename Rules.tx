@@ -11,6 +11,8 @@ Rule:
     inflection_groups*=InflectionBlock)?
   ('exceptions:'
     exceptions*=ExceptionBlock)?
+  ('suffixes:'
+    suffixes*=SuffixBlock)?
 ;
 
 /*
@@ -159,6 +161,16 @@ Exception:
 
 ExceptionText:
   Base | STRING
+;
+
+/*
+ * Different possible suffixes
+ * Runs rules over the final inflected state
+ */
+
+SuffixBlock:
+  'suffix' suffix*=STRING
+  steps*=Step
 ;
 
 /*
