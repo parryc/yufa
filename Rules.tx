@@ -28,7 +28,7 @@ Set:
 ;
 
 If:
-  'if' condition=STRING 'is'? value=STRING? 'then' action=Action
+  'if' condition=STRING 'is'? value=STRING? 'then' action=Action 'otherwise'? otherwise=Action?
 ;
 
 Remove:

@@ -162,6 +162,8 @@ class Parser(object):
        self._get_status(step.condition) == step.value or\
        (step.condition == 'group' and self.group == step.value):
       self._run(step.action)
+    elif step.otherwise:
+      self._run(step.otherwise)
 
   def action_regex(self, action):
     regex = ''
